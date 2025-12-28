@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template ,url_for,redirect,session
-from werkzeug.security import generate_password_hash, check_password_hash
+# from werkzeug.security import generate_password_hash, check_password_hash
 import pdfplumber as pdp
 import re
 import pandas as pd 
@@ -27,20 +27,27 @@ app.secret_key = "your_secret_key_here"
 def index():
     return render_template("home.html")
 
-@app.route('/recruiter_dashboard')
+@app.route('/recruiter_dashboard', methods=['GET', 'POST'])
 def recruiter_dashboard():
-    return render_template("recruiter_dashboard.html")
-
-
-@app.route('/applicant_dashboard', methods=['GET', 'POST'])
-def applicant_dashboard():
     if request.method == 'POST':
-        file = request.files['file']
-        resume_text = read_pdf_resume(file)
-        resume_text = clean_text(resume_text)
-        insert_data(resume_text)
-        return "Resume uploaded and data extracted successfully!"
-    return render_template("applicant_dashboard.html")
+        experience = int(request.form['experience'])
+        required_skills = request.form['required_skills']
+        skills_list = [skill.strip().lower() for skill in required_skills.split(",") if skill.strip()]
+
+        query = "SELECT * FROM data WHERE exp_in_years >= %s"
+        values = [experience]
+
+        if skills_list:
+            for skill in skills_list:
+                query += " AND skills LIKE %s"
+                values.append(f"%{skill}%")
+
+        cursor.execute(query, tuple(values))
+        results = cursor.fetchall()
+
+        return render_template("recruiter_dashboard.html", candidates=results)
+
+    return render_template("recruiter_dashboard.html")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -55,7 +62,7 @@ def login():
         if result and password == result[0] and role == result[1]:
             session['username'] = username
             if result[1] == "applicant":
-                return redirect(url_for('applicant_dashboard'))
+                return redirect(url_for('applicant_dashboard')) 
             elif result[1] == "recruiter":
                 return redirect(url_for('recruiter_dashboard'))
             else:
@@ -83,7 +90,18 @@ def signup():
 
         return redirect(url_for('login'))
     return render_template('signup.html')
-        
+
+
+@app.route('/applicant_dashboard', methods=['GET', 'POST'])
+def applicant_dashboard():
+    if request.method == 'POST':
+        file = request.files['file']
+        resume_text = read_pdf_resume(file)
+        resume_text = clean_text(resume_text)
+        insert_data(resume_text)
+        success_message = "Resume uploaded and data extracted successfully!"    
+        return render_template("applicant_dashboard.html", message=success_message,name=session.get('username','default'))
+    return render_template("applicant_dashboard.html")
 
 skillset=["sql","java","spring boot","azure","git","excel","python","c#","javascript","c++"]
 def extract_skills(resume_text):
@@ -107,19 +125,17 @@ def insert_data(resume_text):
     phone=(extract_phone(resume_text))
     phone=phone[0] if phone else "0000000000"
     email=(extract_email(resume_text))
-    experience= "None"
+    experience= 3
     skills=",".join(extract_skills(resume_text))
-    sql = "INSERT INTO data (name, phone, email, exp, skills) VALUES (%s, %s, %s, %s, %s)"
+    sql = "INSERT INTO data (name, phone, email, EXP_IN_YEARS, skills) VALUES (%s, %s, %s, %s, %s)"
     values = (name, phone, email, experience, skills)
     cursor.execute(sql, values)
     mycon.commit()
-
+    
     if cursor.rowcount>0:
         print("Data inserted successfully.")
     else:
         print("Could not insert data.")
-
-
-
+    
 if __name__ == '__main__':
     app.run(debug=True)
