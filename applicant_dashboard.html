@@ -15,10 +15,10 @@
       <li><a href="#">Home</a></li>
       <li><a href="#">How It Works</a></li>
       <li><a href="#">Features</a></li>
-      <li><a href="#" class="btn-primary">Login</a></li>
+      <li><a href="#" class="btn-primary">{{name}}</a></li>
     </ul>
   </nav>
-<div class="warning">You are currently in Applicant DashBoard,Head for login</div>
+
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
@@ -33,11 +33,12 @@
           <input id="file" name="file" type="file" hidden>
           <label for="file" class="btn-secondary" style="margin-bottom:10px;">Choose File</label>
           <span id="file-name" style="margin-top:10px; margin-left: 5px;">No File chosen</span>
-        </div>
           <button class="btn-secondary">Upload</button>
+        </div>
         </form>
       </div>
     </div>
+    <p>{{message}}</p>
   </section>
 
   <!-- Features -->
@@ -157,7 +158,7 @@ body {
 }
 
 .btn-secondary {
-  border: 2px solid hsl(221, 83%, 53%);
+  border: 2px solid hsl(0, 0%, 0%);
   color:hsl(0,0%,5%);
   background-color: hsl(0,0%,100%);
   font-size: 15px;
