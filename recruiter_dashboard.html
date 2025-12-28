@@ -195,35 +195,50 @@
     <div class="job-box">
       <h2>Create Job Requirement</h2>
 
-      <div class="form-grid">
-        <div>
-          <label>Job Role</label>
-          <input type="text" placeholder="e.g. Backend Developer">
-        </div>
+    <form method="POST" action="{{ url_for('recruiter_dashboard') }}">
+  <div class="form-grid">
+    <div>
+      <label>Job Role</label>
+      <input type="text" name="job_roles" placeholder="e.g. Backend Developer">
+    </div>
 
-        <div>
-          <label>Experience Required</label>
-          <select>
-            <option>0 – 1 Years</option>
-            <option>1 – 3 Years</option>
-            <option>3 – 5 Years</option>
-            <option>5+ Years</option>
-          </select>
-        </div>
+    <div>
+      <label>Experience Required</label>
+      <select name="experience">
+        <option value="0">0 – 1 Years</option>
+        <option value="1">1 – 3 Years</option>
+        <option value="3">3 – 5 Years</option>
+        <option value="5">5+ Years</option>
+      </select>
+    </div>
 
-        <div>
-          <label>Required Skills</label>
-          <input type="text" placeholder="Python, Flask, SQL">
-        </div>
-      </div>
+    <div>
+      <label>Required Skills</label>
+      <input type="text" name="required_skills" placeholder="Python, Flask, SQL">
+    </div>
+  </div>
 
-      <label style="margin-top:20px;">Job Description (Optional)</label>
-      <textarea rows="4" placeholder="Briefly describe the role..."></textarea>
+  <label style="margin-top:20px;">Job Description (Optional)</label>
+  <textarea rows="4" name="job_description" placeholder="Briefly describe the role..."></textarea>
 
-      <!-- This button will trigger backend search -->
-      <button class="btn" onclick="location.href='recruiter-dashboard.html'">
-        🔍 Find Best Candidates
-      </button>
+  <button type="submit" class="btn">🔍 Find Best Candidates</button>
+</form>
+  {% if candidates %}
+  <h3>Matching Candidates</h3>
+  <ul>
+    {% for candidate in candidates %}
+      <li>
+        Name: {{ candidate[1] }} |
+        Phone: {{ candidate[2] }} |
+        Email: {{ candidate[3] }} |
+        Experience: {{ candidate[4] }} |
+        Skills: {{ candidate[5] }}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No candidates found matching your criteria.</p>
+{% endif %}
     </div>
   </section>
 
