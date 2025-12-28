@@ -1,5 +1,332 @@
-<html>
-  <body>
-    hello
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Resume Matcher</title>
+  <link rel="stylesheet" href="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">ResumeMatch</div>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">How It Works</a></li>
+      <li><a href="#">Features</a></li>
+      <li><a href="#" class="btn-primary">Try Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Smart Resume Parsing & Role Matching</h1>
+      <p>
+        Automatically parse resumes, generate structured candidate profiles,  
+        and instantly match them against job descriptions with explainable scores.
+      </p>
+      <div class="hero-buttons">
+        <form action="" method="post" enctype="multipart/form-data">
+          <label for="file"></label>
+        <input id="file" name="file" type="file">
+        <button>Upload Resume</button>
+
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <h2>Why ResumeMatch?</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>📄 Smart Resume Parsing</h3>
+        <p>Extract skills, experience, and contact details from PDF or text resumes.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🎯 Accurate Role Matching</h3>
+        <p>Compare candidates with job descriptions using intelligent scoring logic.</p>
+      </div>
+      <div class="feature-card">
+        <h3>⚡ Fast Screening</h3>
+        <p>Reduce manual screening time by over 70% with automated analysis.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🔍 Explainable Results</h3>
+        <p>See matched skills, missing skills, and score breakdown clearly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works">
+    <h2>How It Works</h2>
+    <div class="steps">
+      <div class="step">
+        <span>1</span>
+        <p>Upload Resume</p>
+      </div>
+      <div class="step">
+        <span>2</span>
+        <p>Paste Job Description</p>
+      </div>
+      <div class="step">
+        <span>3</span>
+        <p>Get Match Score</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <h2>Start Smarter Hiring Today</h2>
+    <p>Built for recruiters, HR teams, and hiring platforms.</p>
+    <a href="#" class="btn-primary">Get Started</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 ResumeMatch. Built for Hackathon.</p>
+  </footer>
+
+</body>
+<style>* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: #f7f9fc;
+  color: #1f2937;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 80px;
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #374151;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: #fff !important;
+  padding: 10px 20px;
+  border-radius: 6px;
+}
+
+.btn-secondary {
+  border: 2px solid #2563eb;
+  color: #2563eb;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+/* Hero */
+.hero {
+  padding: 100px 80px;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: #ffffff;
+}
+
+.hero-content {
+  max-width: 700px;
+}
+
+.hero h1 {
+  font-size: 44px;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+/* Features */
+.features {
+  padding: 80px;
+  background: #ffffff;
+}
+
+.features h2 {
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 32px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.feature-card {
+  background: #f7f9fc;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.feature-card h3 {
+  margin-bottom: 10px;
+}
+
+/* How it works */
+.how-it-works {
+  padding: 80px;
+  text-align: center;
+}
+
+.steps {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.step span {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: #2563eb;
+  color: #fff;
+  border-radius: 50%;
+  line-height: 40px;
+  margin-bottom: 10px;
+}
+
+/* CTA */
+.cta {
+  padding: 80px;
+  text-align: center;
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.cta h2 {
+  margin-bottom: 10px;
+}
+
+/* Footer */
+footer {
+  padding: 20px;
+  text-align: center;
+  background: #111827;
+  color: #9ca3af;
+}
+
+/* Reuse previous styles + add below */
+
+.upload-section, .result-section {
+  padding: 80px 20px;
+  max-width: 700px;
+  margin: auto;
+}
+
+.upload-form {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.upload-form label {
+  display: block;
+  margin-top: 15px;
+  font-weight: 600;
+}
+
+.upload-form input, textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+}
+
+.score-card {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.score {
+  font-size: 48px;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.result-box {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  margin: 5px 5px 0 0;
+  font-size: 14px;
+}
+
+.success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.breakdown {
+  margin-top: 30px;
+  background: #f9fafb;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .result-grid {
+    grid-template-columns: 1fr;
+  }
+}</style>
 </html>
