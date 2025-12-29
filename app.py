@@ -2,18 +2,14 @@ from flask import Flask, request, render_template ,url_for,redirect,session
 from werkzeug.security import generate_password_hash, check_password_hash
 import pdfplumber as pdp
 import re 
-import mysql.connector as sqltor
 
-from dbm import sqlite3
-conn= sqlite3.execute("resume_parser.db")
-# mycon=sqltor.connect(host="localhost",user="root",passwd="utk@2801",database="resume_data")
-if conn.is_connected()== False:
-    print("Error connecting to mysql database.")
+import sqlite3
+conn= sqlite3.connect("resume_parser.db",check_same_thread=False)
 cursor=conn.cursor()
 
 def read_pdf_resume(file):
     text = ""
-    with pdp.open(file) as pdf:
+    with pdp.open(file.stream) as pdf:
         for page in pdf.pages:
             text += page.extract_text() + "\n"
     return text
@@ -31,6 +27,9 @@ def index():
 
 @app.route('/recruiter_dashboard', methods=['GET', 'POST'])
 def recruiter_dashboard():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
     if request.method == 'POST':
         experience = int(request.form['experience'])
         required_skills = request.form['required_skills']
@@ -41,7 +40,7 @@ def recruiter_dashboard():
 
         if skills_list:
             for skill in skills_list:
-                query += " AND skills LIKE ?"
+                query += " AND LOWER(skills) LIKE ?"
                 values.append(f"%{skill}%")
 
         cursor.execute(query, tuple(values))
@@ -98,6 +97,9 @@ def signup():
 
 @app.route('/applicant_dashboard', methods=['GET', 'POST'])
 def applicant_dashboard():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
     if request.method == 'POST':
         file = request.files['file']
         resume_text = read_pdf_resume(file)
@@ -117,7 +119,6 @@ def extract_skills(resume_text):
 
 def extract_phone(resume_text):
     phone =re.findall(r'\b(?:\+91[\s-])[6-9]\d{9}\b',resume_text)
-    phone=re.findall(r'\b[6-9]\d{9}\b', resume_text)
     return phone if phone else None
 
 def extract_email(resume_text):
@@ -129,7 +130,7 @@ def insert_data(resume_text):
     phone=(extract_phone(resume_text))
     phone=phone[0] if phone else "0000000000"
     email=(extract_email(resume_text))
-    experience= 3
+    experience= 0
     skills=",".join(extract_skills(resume_text))
     sql = "INSERT INTO data (name, phone, email, EXP_IN_YEARS, skills) VALUES (?, ?, ?, ?, ?)"
     values = (name, phone, email, experience, skills)
