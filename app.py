@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template ,url_for,redirect,session
-# from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 import pdfplumber as pdp
 import re
 import pandas as pd 
@@ -25,7 +25,7 @@ app.secret_key = "your_secret_key_here"
 
 @app.route('/')
 def index():
-    return render_template("home.html")
+    return render_template("index.html")
 
 @app.route('/recruiter_dashboard', methods=['GET', 'POST'])
 def recruiter_dashboard():
@@ -59,7 +59,7 @@ def login():
         cursor.execute("SELECT password, role FROM users WHERE username = %s", (username,))
         result = cursor.fetchone()
 
-        if result and password == result[0] and role == result[1]:
+        if result and check_password_hash(result[0], password) and role == result[1]:
             session['username'] = username
             if result[1] == "applicant":
                 return redirect(url_for('applicant_dashboard')) 
@@ -82,9 +82,11 @@ def signup():
 
         if password != confirm_password:
             return "Passwords do not match!"
+        
+        hashed_password = generate_password_hash(password)
 
         sql = "INSERT INTO users (username, email, password, role) VALUES (%s, %s, %s, %s)"
-        values = (username, email, password, role)
+        values = (username, email, hashed_password, role)
         cursor.execute(sql, values)
         mycon.commit() 
 
