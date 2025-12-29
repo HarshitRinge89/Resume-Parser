@@ -1,13 +1,15 @@
 from flask import Flask, request, render_template ,url_for,redirect,session
 from werkzeug.security import generate_password_hash, check_password_hash
 import pdfplumber as pdp
-import re
-import pandas as pd 
+import re 
 import mysql.connector as sqltor
-mycon=sqltor.connect(host="localhost",user="root",passwd="utk@2801",database="resume_data")
-if mycon.is_connected()== False:
+
+from dbm import sqlite3
+conn= sqlite3.execute("resume_parser.db")
+# mycon=sqltor.connect(host="localhost",user="root",passwd="utk@2801",database="resume_data")
+if conn.is_connected()== False:
     print("Error connecting to mysql database.")
-cursor=mycon.cursor()
+cursor=conn.cursor()
 
 def read_pdf_resume(file):
     text = ""
@@ -88,7 +90,7 @@ def signup():
         sql = "INSERT INTO users (username, email, password, role) VALUES (%s, %s, %s, %s)"
         values = (username, email, hashed_password, role)
         cursor.execute(sql, values)
-        mycon.commit() 
+        conn.commit() 
 
         return redirect(url_for('login'))
     return render_template('signup.html')
@@ -132,7 +134,7 @@ def insert_data(resume_text):
     sql = "INSERT INTO data (name, phone, email, EXP_IN_YEARS, skills) VALUES (%s, %s, %s, %s, %s)"
     values = (name, phone, email, experience, skills)
     cursor.execute(sql, values)
-    mycon.commit()
+    conn.commit()
     
     if cursor.rowcount>0:
         print("Data inserted successfully.")
