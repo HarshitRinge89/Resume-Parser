@@ -73,9 +73,9 @@ def login():
     return render_template('login.html')
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    
     if request.method == 'POST':
         username = request.form['username']
-
         email = request.form['email']
         password = request.form['password']
         confirm_password = request.form['confirm-password']
@@ -94,6 +94,9 @@ def signup():
         return redirect(url_for('login'))
     return render_template('signup.html')
 
+@app.before_request
+def debug():
+    print("METHOD:", request.method, "PATH:", request.path)
 
 @app.route('/applicant_dashboard', methods=['GET', 'POST'])
 def applicant_dashboard():
