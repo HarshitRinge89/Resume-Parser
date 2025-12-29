@@ -36,12 +36,12 @@ def recruiter_dashboard():
         required_skills = request.form['required_skills']
         skills_list = [skill.strip().lower() for skill in required_skills.split(",") if skill.strip()]
 
-        query = "SELECT * FROM data WHERE exp_in_years >= %s"
+        query = "SELECT * FROM data WHERE exp_in_years >= ?"
         values = [experience]
 
         if skills_list:
             for skill in skills_list:
-                query += " AND skills LIKE %s"
+                query += " AND skills LIKE ?"
                 values.append(f"%{skill}%")
 
         cursor.execute(query, tuple(values))
@@ -58,7 +58,7 @@ def login():
         password = request.form['password']
         role = request.form['role']
 
-        cursor.execute("SELECT password, role FROM users WHERE username = %s", (username,))
+        cursor.execute("SELECT password, role FROM users WHERE username = ?", (username,))
         result = cursor.fetchone()
 
         if result and check_password_hash(result[0], password) and role == result[1]:
@@ -87,7 +87,7 @@ def signup():
         
         hashed_password = generate_password_hash(password)
 
-        sql = "INSERT INTO users (username, email, password, role) VALUES (%s, %s, %s, %s)"
+        sql = "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)"
         values = (username, email, hashed_password, role)
         cursor.execute(sql, values)
         conn.commit() 
@@ -131,7 +131,7 @@ def insert_data(resume_text):
     email=(extract_email(resume_text))
     experience= 3
     skills=",".join(extract_skills(resume_text))
-    sql = "INSERT INTO data (name, phone, email, EXP_IN_YEARS, skills) VALUES (%s, %s, %s, %s, %s)"
+    sql = "INSERT INTO data (name, phone, email, EXP_IN_YEARS, skills) VALUES (?, ?, ?, ?, ?)"
     values = (name, phone, email, experience, skills)
     cursor.execute(sql, values)
     conn.commit()
