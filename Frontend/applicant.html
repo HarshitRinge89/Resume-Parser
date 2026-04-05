@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard | ResumeMatch</title>
+  <link rel="stylesheet" href="applicant.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="logo">ResumeMatch</div>
+  <div class="nav-buttons">
+    <a href="index.html" class="btn-outline">Home</a>
+  </div>
+</nav>
+
+<!-- Main Section -->
+<section class="dashboard">
+
+  <!-- Upload Box -->
+  <div class="upload-box">
+    <h2>Upload Your Resume</h2>
+    <p>Get instant AI insights and job matching</p>
+
+    <input type="file" id="resume">
+    <button class="btn-primary" onclick="analyzeResume()">Analyze Resume</button>
+  </div>
+
+  <!-- Result Section -->
+  <div class="result-box" id="resultBox">
+
+    <h2>Your Profile Analysis</h2>
+
+    <div class="score-card">
+      <p>Match Score</p>
+      <h1 id="score">--%</h1>
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+        <h3>Skills</h3>
+        <p id="skills">---</p>
+      </div>
+
+      <div class="card">
+        <h3>Email</h3>
+        <p id="email">---</p>
+      </div>
+
+      <div class="card">
+        <h3>Phone</h3>
+        <p id="phone">---</p>
+      </div>
+
+      <div class="card">
+        <h3>Experience</h3>
+        <p id="experience">---</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<script src="applicant.js"></script>
+</body>
+</html>

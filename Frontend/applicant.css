@@ -1,0 +1,97 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: #f4f8ff;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 80px;
+  background: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2563eb;
+}
+
+/* Dashboard */
+.dashboard {
+  padding: 60px 80px;
+}
+
+/* Upload Box */
+.upload-box {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+  margin-bottom: 40px;
+}
+
+.upload-box h2 {
+  margin-bottom: 10px;
+}
+
+.upload-box p {
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+.upload-box input {
+  margin-bottom: 20px;
+}
+
+/* Button */
+.btn-primary {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Result Box */
+.result-box {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+/* Score */
+.score-card {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.score-card h1 {
+  font-size: 50px;
+  color: #2563eb;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 20px;
+}
+
+/* Cards */
+.card {
+  background: #f9fbff;
+  padding: 20px;
+  border-radius: 10px;
+}
