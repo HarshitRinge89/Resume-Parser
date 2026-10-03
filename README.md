@@ -1,0 +1,1 @@
+Resume parser parses your resume as input and performs analysis and predicts how good it is. (WIP)
